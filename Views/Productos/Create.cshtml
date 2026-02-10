@@ -1,4 +1,5 @@
-﻿@model SistemaGestionFerreteria.Models.Producto
+﻿@using SistemaGestionFerreteria.Models.ViewModel
+@model ProductoCreateViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -22,19 +23,17 @@
                 <input asp-for="Precio" class="form-control" />
                 <span asp-validation-for="Precio" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Stock" class="control-label"></label>
-                <input asp-for="Stock" class="form-control" />
-                <span asp-validation-for="Stock" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="CategoriaId" class="control-label"></label>
-                <select asp-for="CategoriaId" class ="form-control" asp-items="ViewBag.CategoriaId"></select>
+                <select asp-for="CategoriaId"
+                        asp-items="Model.Categorias"
+                        class="form-select">
+                    <option value="">Seleccione una categoría</option>
+                </select>
+
             </div>
-            <div class="form-group">
-                <label asp-for="ProveedorId" class="control-label"></label>
-                <select asp-for="ProveedorId" class ="form-control" asp-items="ViewBag.ProveedorId"></select>
-            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
