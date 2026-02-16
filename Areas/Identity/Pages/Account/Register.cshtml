@@ -1,80 +1,176 @@
 ﻿@page
 @model RegisterModel
 @using SistemaGestionFerreteria.Models
+
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Registro";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
 
-<div class="row">
-    <div class="col-md-4">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label asp-for="Input.Email">Email</label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.Password">Password</label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            @if(User.IsInRole(Roles.Administrador))
-                {
-                    <div class="fore-group row">
-                        <div class="col-6"><h4>Seleccionar el rol de usuario</h4></div>
-                        <div class="col-5">
-                          <input type="radio" name="radUsuarioRole" value="Roles.Administrador" /> @Roles.Administrador
-                          <input type="radio" name="radUsuarioRole" value="Roles.Registrado" /> @Roles.Registrado
-                          <input type="radio" name="radUsuarioRole" value="Roles.Empleado" /> @Roles.Empleado
-                        </div>
-                    </div>
-                }
+        ```
+        <div class="col-lg-5 col-md-7">
 
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-        </form>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-4">
+
+                    <h2 class="text-center fw-bold mb-3">Crear cuenta</h2>
+                    <p class="text-center text-muted mb-4">
+                        Sistema de Gestión de Ferretería
+                    </p>
+
+                    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+
+                        <div asp-validation-summary="ModelOnly"
+                             class="alert alert-danger text-center"
+                             role="alert">
                         </div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Email"
+                                   class="form-control"
+                                   autocomplete="username"
+                                   placeholder="correo@ejemplo.com" />
+                            <label asp-for="Input.Email">Correo electrónico</label>
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Password"
+                                   class="form-control"
+                                   autocomplete="new-password"
+                                   placeholder="Contraseña" />
+                            <label asp-for="Input.Password">Contraseña</label>
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.ConfirmPassword"
+                                   class="form-control"
+                                   autocomplete="new-password"
+                                   placeholder="Confirmar contraseña" />
+                            <label asp-for="Input.ConfirmPassword">Confirmar contraseña</label>
+                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                        @if (User.IsInRole(Roles.Administrador))
+                        {
+                            <div class="mb-3">
+                                <label class="fw-semibold mb-2">Seleccionar rol del usuario</label>
+
+                                <div class="form-check">
+                                    <input class="form-check-input"
+                                           type="radio"
+                                           name="radUsuarioRole"
+                                           value="@Roles.Administrador" />
+                                    <label class="form-check-label">@Roles.Administrador</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input"
+                                           type="radio"
+                                           name="radUsuarioRole"
+                                           value="@Roles.Registrado" />
+                                    <label class="form-check-label">@Roles.Registrado</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input"
+                                           type="radio"
+                                           name="radUsuarioRole"
+                                           value="@Roles.Empleado" />
+                                    <label class="form-check-label">@Roles.Empleado</label>
+                                </div>
+                            </div>
+                        }
+
+                        <button id="registerSubmit"
+                                type="submit"
+                                class="btn btn-primary w-100 py-2 fw-semibold">
+                            Registrarse
+                        </button>
+
                     </form>
-                }
-            }
-        </section>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-5 mt-4 mt-lg-0">
+
+            <div class="card shadow border-0 rounded-4">
+                <div class="card-body p-4">
+
+                    <h4 class="fw-bold">Registro con servicios externos</h4>
+                    <hr />
+
+                    @{
+                        if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                        {
+                            <p class="text-muted">
+                                No hay servicios de autenticación externa configurados.
+                            </p>
+                        }
+                        else
+                        {
+                            <form id="external-account"
+                                  asp-page="./ExternalLogin"
+                                  asp-route-returnUrl="@Model.ReturnUrl"
+                                  method="post">
+
+                                <div class="d-grid gap-2">
+                                    @foreach (var provider in Model.ExternalLogins!)
+                                    {
+                                        <button type="submit"
+                                                class="btn btn-outline-primary"
+                                                name="provider"
+                                                value="@provider.Name">
+                                            Ingresar con @provider.DisplayName
+                                        </button>
+                                    }
+                                </div>
+
+                            </form>
+                        }
+                    }
+
+                </div>
+            </div>
+
+        </div>
+
     </div>
+    ```
+
 </div>
 
 @section Scripts {
+
+    ```
     <partial name="_ValidationScriptsPartial" />
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        const form = document.getElementById("registerForm");
+
+        form.addEventListener("submit", function (e) {
+
+            if (!form.checkValidity()) {
+                e.preventDefault();
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Formulario incompleto',
+                    text: 'Por favor completá todos los campos correctamente',
+                    confirmButtonText: 'Entendido'
+                });
+            }
+        });
+    </script>
+    ```
+
 }
