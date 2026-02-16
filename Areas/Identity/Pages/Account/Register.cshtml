@@ -1,5 +1,6 @@
 ﻿@page
 @model RegisterModel
+@using SistemaGestionFerreteria.Models
 @{
     ViewData["Title"] = "Register";
 }
@@ -27,6 +28,18 @@
                 <label asp-for="Input.ConfirmPassword">Confirm Password</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
+            @if(User.IsInRole(Roles.Administrador))
+                {
+                    <div class="fore-group row">
+                        <div class="col-6"><h4>Seleccionar el rol de usuario</h4></div>
+                        <div class="col-5">
+                          <input type="radio" name="radUsuarioRole" value="Roles.Administrador" /> @Roles.Administrador
+                          <input type="radio" name="radUsuarioRole" value="Roles.Registrado" /> @Roles.Registrado
+                          <input type="radio" name="radUsuarioRole" value="Roles.Empleado" /> @Roles.Empleado
+                        </div>
+                    </div>
+                }
+
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
         </form>
     </div>
