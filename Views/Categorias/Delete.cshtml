@@ -1,0 +1,33 @@
+﻿@model SistemaGestionFerreteria.Models.Entities.Categoria
+
+@{
+    ViewData["Title"] = "Eliminar Categoria";
+}
+
+<h1 class="mb-4 text-danger">Eliminar Categoria</h1>
+
+<div class="alert alert-warning">
+    ¿Estas seguro que deseas eliminar esta categoria?
+</div>
+
+<div class="mb-3">
+    <strong>Nombre:</strong> @Model.Nombre
+</div>
+
+<div class="mb-3">
+    <strong>Descripcion:</strong> @Model.Descripcion
+</div>
+
+<form asp-action="Delete">
+
+    <input type="hidden" asp-for="Id" />
+
+    <button type="submit" class="btn btn-danger">
+        Eliminar
+    </button>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Cancelar
+    </a>
+
+</form>
