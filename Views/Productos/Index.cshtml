@@ -10,7 +10,8 @@
     Nuevo Producto
 </a>
 
-<table class="table table-bordered table-striped">
+<table id="tablaProductos"
+       class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>Nombre</th>
@@ -43,3 +44,11 @@
         }
     </tbody>
 </table>
+
+@section Scripts {
+
+    <script>
+        new DataTable('#tablaProductos');
+    </script>
+
+}
