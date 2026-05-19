@@ -1,0 +1,40 @@
+﻿@model IEnumerable<SistemaGestionFerreteria.Models.ViewModels.VentaListadoViewModel>
+
+@{
+    ViewData["Title"] = "Reporte de Ventas";
+}
+
+<h1 class="mb-4">Reporte de Ventas</h1>
+
+<table id="tablaVentas" class="table table-bordered table-striped">
+
+    <thead>
+        <tr>
+            <th>Venta</th>
+            <th>Cliente</th>
+            <th>Fecha</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var venta in Model)
+        {
+            <tr>
+                <td>@venta.VentaId</td>
+                <td>@venta.Cliente</td>
+                <td>@venta.Fecha.ToShortDateString()</td>
+                <td>$@venta.Total</td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+@section Scripts {
+
+    <script>
+        new DataTable('#tablaVentas');
+    </script>
+
+}

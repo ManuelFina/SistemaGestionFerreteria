@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemaGestionFerreteria.Data;
 using SistemaGestionFerreteria.Models.Entities;
+using SistemaGestionFerreteria.Models.ViewModels;
 using SistemaGestionFerreteria.Repositories.Interfaces;
 
 namespace SistemaGestionFerreteria.Repositories.Implementaciones
@@ -29,6 +30,13 @@ namespace SistemaGestionFerreteria.Repositories.Implementaciones
         {
             await _context.Ventas.AddAsync(venta);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<VentaListadoViewModel>> ObtenerVentasSPAsync()
+        {
+            return await _context.VentasListado
+                .FromSqlRaw("EXEC SP_LISTAR_VENTAS")
+                .ToListAsync();
         }
     }
 }

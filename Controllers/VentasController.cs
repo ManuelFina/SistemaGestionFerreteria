@@ -80,4 +80,11 @@ public class VentasController(
 
         ViewBag.Productos = new SelectList(productos, "Id", "Nombre");
     }
+
+    public async Task<IActionResult> ReporteVentas()
+    {
+        var ventas = await ventaRepository.ObtenerVentasSPAsync();
+
+        return View(ventas);
+    }
 }
