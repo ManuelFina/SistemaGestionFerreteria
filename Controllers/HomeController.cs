@@ -1,14 +1,33 @@
 using Microsoft.AspNetCore.Mvc;
 using SistemaGestionFerreteria.Models;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using SistemaGestionFerreteria.Data;
+using SistemaGestionFerreteria.Models.ViewModels;
 
 namespace SistemaGestionFerreteria.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(ApplicationDbContext context) : Controller
     {
-        public IActionResult Index()
+        private readonly ApplicationDbContext _context = context;
+
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var model = new DashboardViewModel
+            {
+                TotalProductos = await _context.Productos.CountAsync(),
+
+                TotalClientes = await _context.Clientes.CountAsync(),
+
+                TotalVentas = await _context.Ventas.CountAsync(),
+
+                TotalFacturado = await _context.Ventas.SumAsync(v => v.Total),
+
+                ProductosStockBajo = await _context.Productos
+                    .CountAsync(p => p.Stock < 10)
+            };
+
+            return View(model);
         }
 
         public IActionResult Privacy()

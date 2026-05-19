@@ -1,8 +1,93 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model SistemaGestionFerreteria.Models.ViewModels.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1 class="mb-5 text-center">
+    Sistema de Gestion de Ferreteria
+</h1>
+
+<div class="row g-4">
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+
+            <div class="card-body text-center">
+
+                <h5>Total Productos</h5>
+
+                <h2>@Model.TotalProductos</h2>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+
+            <div class="card-body text-center">
+
+                <h5>Total Clientes</h5>
+
+                <h2>@Model.TotalClientes</h2>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+
+            <div class="card-body text-center">
+
+                <h5>Total Ventas</h5>
+
+                <h2>@Model.TotalVentas</h2>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+
+            <div class="card-body text-center">
+
+                <h5>Stock Bajo</h5>
+
+                <h2>@Model.ProductosStockBajo</h2>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="row mt-5">
+
+    <div class="col-md-12">
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-body text-center">
+
+                <h3>Total Facturado</h3>
+
+                <h1 class="display-4">
+
+                    $@Model.TotalFacturado
+
+                </h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
