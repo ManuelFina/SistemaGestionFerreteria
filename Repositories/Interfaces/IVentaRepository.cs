@@ -8,6 +8,6 @@ namespace SistemaGestionFerreteria.Repositories.Interfaces
 
         Task<Venta?> ObtenerPorIdAsync(int id);
 
-        Task CrearAsync(Venta venta);
+        Task CrearVentaAsync(Venta venta);
     }
 }

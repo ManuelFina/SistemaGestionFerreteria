@@ -25,7 +25,7 @@ namespace SistemaGestionFerreteria.Repositories.Implementaciones
                 .FirstOrDefaultAsync(v => v.Id == id);
         }
 
-        public async Task CrearAsync(Venta venta)
+        public async Task CrearVentaAsync(Venta venta)
         {
             await _context.Ventas.AddAsync(venta);
             await _context.SaveChangesAsync();
