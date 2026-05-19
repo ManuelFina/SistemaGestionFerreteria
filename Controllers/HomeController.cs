@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using SistemaGestionFerreteria.Data;
 using SistemaGestionFerreteria.Models.ViewModels;
+using System.Globalization;
 
 namespace SistemaGestionFerreteria.Controllers
 {
@@ -26,6 +27,26 @@ namespace SistemaGestionFerreteria.Controllers
                 ProductosStockBajo = await _context.Productos
                     .CountAsync(p => p.Stock < 10)
             };
+
+            var ventasAgrupadas = await _context.Ventas
+    .GroupBy(v => v.Fecha.Month)
+    .Select(g => new
+    {
+        Mes = g.Key,
+        Total = g.Sum(v => v.Total)
+    })
+    .OrderBy(x => x.Mes)
+    .ToListAsync();
+
+            model.Meses = ventasAgrupadas
+                .Select(v => CultureInfo.CurrentCulture
+                .DateTimeFormat
+                .GetMonthName(v.Mes))
+                .ToList();
+
+            model.VentasPorMes = ventasAgrupadas
+                .Select(v => v.Total)
+                .ToList();
 
             return View(model);
         }

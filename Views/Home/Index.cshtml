@@ -1,4 +1,6 @@
-﻿@model SistemaGestionFerreteria.Models.ViewModels.DashboardViewModel
+﻿@using System.Text.Json
+
+@model SistemaGestionFerreteria.Models.ViewModels.DashboardViewModel
 
 @{
     ViewData["Title"] = "Dashboard";
@@ -91,3 +93,55 @@
     </div>
 
 </div>
+
+<div class="row mt-5">
+
+    <div class="col-md-12">
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-body">
+
+                <h3 class="mb-4 text-center">
+                    Ventas por Mes
+                </h3>
+
+                <canvas id="graficoVentas"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script>
+
+        const ctx = document.getElementById('graficoVentas');
+
+        new Chart(ctx, {
+            type: 'bar',
+
+            data: {
+                labels: @Html.Raw(JsonSerializer.Serialize(Model.Meses)),
+
+                datasets: [{
+                    label: 'Ventas por Mes',
+
+                    data: @Html.Raw(JsonSerializer.Serialize(Model.VentasPorMes)),
+
+                    borderWidth: 1
+                }]
+            },
+
+            options: {
+                responsive: true
+            }
+        });
+
+    </script>
+
+}

@@ -11,5 +11,9 @@
         public decimal TotalFacturado { get; set; }
 
         public int ProductosStockBajo { get; set; }
+
+        public List<string> Meses { get; set; } = [];
+
+        public List<decimal> VentasPorMes { get; set; } = [];
     }
 }
