@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SistemaGestionFerreteria.Models.Entities.Cliente>
+
+@{
+    ViewData["Title"] = "Clientes";
+}
+
+<h1 class="mb-4">Clientes</h1>
+
+<a asp-action="Create" class="btn btn-primary mb-3">
+    Nuevo Cliente
+</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Telefono</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var cliente in Model)
+        {
+            <tr>
+                <td>@cliente.Nombre</td>
+                <td>@cliente.Email</td>
+                <td>@cliente.Telefono</td>
+
+                <td>
+                    <a asp-action="Edit"
+                       asp-route-id="@cliente.Id"
+                       class="btn btn-warning btn-sm">
+                        Editar
+                    </a>
+
+                    <a asp-action="Delete"
+                       asp-route-id="@cliente.Id"
+                       class="btn btn-danger btn-sm">
+                        Eliminar
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

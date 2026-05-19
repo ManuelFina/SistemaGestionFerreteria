@@ -1,0 +1,46 @@
+﻿@model SistemaGestionFerreteria.Models.Entities.Cliente
+
+@{
+    ViewData["Title"] = "Eliminar Cliente";
+}
+
+<h1 class="mb-4 text-danger">Eliminar Cliente</h1>
+
+<div class="alert alert-warning">
+    ¿Estas seguro que deseas eliminar este cliente?
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        <p>
+            <strong>Nombre:</strong>
+            @Model.Nombre
+        </p>
+
+        <p>
+            <strong>Email:</strong>
+            @Model.Email
+        </p>
+
+        <p>
+            <strong>Telefono:</strong>
+            @Model.Telefono
+        </p>
+
+    </div>
+</div>
+
+<form asp-action="Delete" class="mt-3">
+
+    <input type="hidden" asp-for="Id" />
+
+    <button type="submit" class="btn btn-danger">
+        Eliminar
+    </button>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Cancelar
+    </a>
+
+</form>
