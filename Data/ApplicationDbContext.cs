@@ -5,7 +5,8 @@ using SistemaGestionFerreteria.Models.ViewModels;
 
 namespace SistemaGestionFerreteria.Data
 {
-    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext(options)
+    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
+        : IdentityDbContext<ApplicationUser>(options)
     {
         public DbSet<Categoria> Categorias { get; set; }
 
