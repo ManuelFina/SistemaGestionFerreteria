@@ -38,36 +38,58 @@ public class VentasController(
             return View(model);
         }
 
-        var producto = await productoRepository.ObtenerPorIdAsync(model.ProductoId);
-
-        if (producto == null)
+        try
         {
-            return NotFound();
-        }
+            var producto = await productoRepository.ObtenerPorIdAsync(model.ProductoId);
 
-        var total = producto.Precio * model.Cantidad;
+            if (producto == null)
+            {
+                return NotFound();
+            }
 
-        var venta = new Venta
-        {
-            ClienteId = model.ClienteId,
-            Fecha = DateTime.Now,
-            Total = total,
-            DetalleVentas =
-            [
-                new()
+            if (producto.Stock < model.Cantidad)
+            {
+                ModelState.AddModelError(
+                    "",
+                    $"Stock insuficiente. Disponible: {producto.Stock}");
+
+                await CargarCombosAsync();
+
+                return View(model);
+            }
+
+            var total = producto.Precio * model.Cantidad;
+
+            var venta = new Venta
+            {
+                ClienteId = model.ClienteId,
+                Fecha = DateTime.Now,
+                Total = total,
+                DetalleVentas =
+                [
+                    new()
                 {
                     ProductoId = model.ProductoId,
                     Cantidad = model.Cantidad,
                     PrecioUnitario = producto.Precio
                 }
-            ]
-        };
+                ]
+            };
 
-        await ventaRepository.CrearVentaAsync(venta);
+            await ventaRepository.CrearVentaAsync(venta);
 
-        TempData["success"] = "Venta registrada correctamente";
+            TempData["success"] = "Venta registrada correctamente";
 
-        return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index));
+        }
+        catch (Exception ex)
+        {
+            ModelState.AddModelError("", ex.Message);
+
+            await CargarCombosAsync();
+
+            return View(model);
+        }
     }
 
     private async Task CargarCombosAsync()

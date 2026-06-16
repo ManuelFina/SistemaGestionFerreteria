@@ -28,10 +28,24 @@ namespace SistemaGestionFerreteria.Repositories.Implementaciones
 
         public async Task CrearVentaAsync(Venta venta)
         {
+            foreach (var detalle in venta.DetalleVentas!)
+            {
+                var producto = await _context.Productos
+                    .FirstOrDefaultAsync(p => p.Id == detalle.ProductoId);
+
+                if (producto == null)
+                    throw new Exception("Producto no encontrado.");
+                
+                if (producto.Stock < detalle.Cantidad)
+                    throw new Exception($"Stock insuficiente para {producto.Nombre}");
+                
+                producto.Stock -= detalle.Cantidad;
+            }
+
             await _context.Ventas.AddAsync(venta);
+
             await _context.SaveChangesAsync();
         }
-
         public async Task<IEnumerable<VentaListadoViewModel>> ObtenerVentasSPAsync()
         {
             return await _context.VentasListado
