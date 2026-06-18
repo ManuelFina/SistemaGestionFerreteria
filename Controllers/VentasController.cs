@@ -47,6 +47,17 @@ public class VentasController(
                 return NotFound();
             }
 
+            if (model.Cantidad > producto.Stock)
+            {
+                ModelState.AddModelError(
+                    string.Empty,
+                    $"Stock insuficiente. Disponible: {producto.Stock}");
+
+                await CargarCombosAsync();
+
+                return View(model);
+            }
+
             if (producto.Stock < model.Cantidad)
             {
                 ModelState.AddModelError(

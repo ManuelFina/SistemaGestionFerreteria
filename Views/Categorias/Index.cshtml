@@ -10,7 +10,7 @@
     Nueva Categoria
 </a>
 
-<table class="table table-bordered table-striped">
+<table id="tablaCategorias" class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>Nombre</th>
@@ -37,3 +37,13 @@
         }
     </tbody>
 </table>
+
+@section Scripts {
+
+    <script>
+
+        new DataTable('#tablaCategorias');
+
+    </script>
+
+}

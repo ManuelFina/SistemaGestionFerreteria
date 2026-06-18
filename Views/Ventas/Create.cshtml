@@ -6,6 +6,8 @@
 
 <h1 class="mb-4">Nueva Venta</h1>
 
+<div asp-validation-summary="All" class="text-danger"></div>
+
 <form asp-action="Create">
 
     <div class="mb-3">
@@ -59,3 +61,7 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
+
+
+        

@@ -10,7 +10,7 @@
     Nuevo Proveedor
 </a>
 
-<table class="table table-bordered table-striped">
+<table id="tablaProveedores" class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>Nombre</th>
@@ -43,3 +43,13 @@
         }
     </tbody>
 </table>
+
+@section Scripts {
+
+    <script>
+
+        new DataTable('#tablaProveedores');
+
+    </script>
+
+}
